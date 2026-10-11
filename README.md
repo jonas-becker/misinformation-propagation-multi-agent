@@ -111,3 +111,9 @@ the controls with the same prompts and another generator. Datasheet: `docs/mint_
   (re-derived `verified` flag); use a copy to keep release files byte-identical.
 * `scripts/propagation_metrics.py --tables_only`, `scripts/rescore_results.py --tables_only` and
   `scripts/costs.py --tables_only` rewrite their tables from the CSVs without reading the transcripts.
+
+## Citation
+
+```bibtex
+Coming soon.
+```
