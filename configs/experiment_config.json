@@ -1,0 +1,233 @@
+{
+  "_comment": "Single source of truth for experimental details. scripts/make_details_table.py renders appendix/experimental_details.tex from this file plus run metadata. Fields ending in _short are the wording of the concise appendix table; the long fields feed the full table (--full).",
+  "paper": {
+    "title": "Misinformation Propagation in Benign Multi-Agent Systems",
+    "venue": "ACL Rolling Review"
+  },
+  "models": [
+    {
+      "display": "Llama-3.3-70B",
+      "hf_id": "meta-llama/Llama-3.3-70B-Instruct",
+      "family": "llama",
+      "revision": "6f6073b423013f6a7d4d9f39144961bfbfbc386b (HF snapshot served, from the vLLM server log)",
+      "served_with": "vLLM 0.19.0 OpenAI-compatible server (exp1.slurm/exp2.slurm), tensor parallel = 2 x A100-80GB, dtype bfloat16",
+      "max_model_len": 8192,
+      "reasoning_parser": null,
+      "effective_default_sampling": "generation_config.json of the model overrides the vLLM defaults: temperature 0.6, top-p 0.9 (used by the MALLM debates, which send no sampling parameters; exp_msc.py sends temperature 1.0 / top-p 1.0 explicitly)",
+      "role": "consumer + MINT generator (HF transformers, see mint_generation)",
+      "served_with_short": "vLLM 0.19.0, tensor parallel 2, bf16",
+      "reasoning_parser_short": "no reasoning parser",
+      "effective_default_sampling_short": "T 0.6, top-p 0.9 (server default, used by the debates)",
+      "default_temperature": 0.6,
+      "default_top_p": 0.9,
+      "max_tokens_single": 2048,
+      "max_tokens_debate": 1024,
+      "sampling_note": "Llama: debates sampled at the model default 0.6 / 0.9, mSC (and the single mSC sample used as prompt-matched single-agent reference) at 1.0 / 1.0; the msc_matched runs repeat mSC at 0.6 / 0.9 (scripts/msc_matched_sensitivity.py)."
+    },
+    {
+      "display": "GLM-4.7-Flash",
+      "hf_id": "zai-org/GLM-4.7-Flash",
+      "family": "glm",
+      "revision": "7dd20894a642a0aa287e9827cb1a1f7f91386b67 (HF snapshot served, from the vLLM server log)",
+      "served_with": "vLLM 0.19.0 OpenAI-compatible server, tensor parallel = 1, dtype bfloat16",
+      "max_model_len": 65536,
+      "reasoning_parser": "full-sample run set: none (thinking text streamed into content); verified run set: --reasoning-parser glm45, max_tokens 4096 (debates) / 2048 (single agent)",
+      "effective_default_sampling": "generation_config.json of the model overrides the vLLM defaults: temperature 1.0 (top-p not set)",
+      "role": "consumer; cross-generator; judge",
+      "served_with_short": "vLLM 0.19.0, tensor parallel 1, bf16",
+      "reasoning_parser_short": "reasoning parser glm45 (none in the full-sample run set)",
+      "effective_default_sampling_short": "T 1.0, top-p 1.0 (server default, used by the debates)",
+      "default_temperature": 1.0,
+      "default_top_p": 1.0,
+      "max_tokens_single": 2048,
+      "max_tokens_debate": 4096
+    },
+    {
+      "display": "GPT-OSS-120B",
+      "hf_id": "openai/gpt-oss-120b",
+      "family": "gptoss",
+      "revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a (HF snapshot served, from the vLLM server log)",
+      "served_with": "vLLM 0.19.0 OpenAI-compatible server, tensor parallel = 1, dtype bfloat16, --tool-call-parser openai",
+      "max_model_len": 32768,
+      "reasoning_parser": "full-sample run set: none (harmony analysis channel streamed into content); verified run set: --reasoning-parser openai_gptoss, max_tokens 4096 (debates) / 2048 (single agent)",
+      "effective_default_sampling": "no generation_config override logged by vLLM -> vLLM defaults (temperature 1.0, top-p 1.0)",
+      "role": "consumer; cross-generator; judge; paraphrase model (style control)",
+      "served_with_short": "vLLM 0.19.0, tensor parallel 1, bf16",
+      "reasoning_parser_short": "reasoning parser openai_gptoss (none in the full-sample run set)",
+      "effective_default_sampling_short": "T 1.0, top-p 1.0 (server default, used by the debates)",
+      "default_temperature": 1.0,
+      "default_top_p": 1.0,
+      "max_tokens_single": 2048,
+      "max_tokens_debate": 4096
+    }
+  ],
+  "datasets": {
+    "cwq": {
+      "name": "ComplexWebQuestions",
+      "hf_id": "drt/complex_web_questions",
+      "split": "train (random sample)",
+      "n": 381,
+      "answer_type": "free-form (canonical answers + aliases)",
+      "sampling": "uniform random sample sized by the finite-population 95%/5% formula in dataset_config.json",
+      "short_name": "CWQ",
+      "answer_type_short": "free-form"
+    },
+    "ethics": {
+      "name": "ETHICS commonsense morality",
+      "hf_id": "hendrycks/ethics (commonsense)",
+      "split": "train (random sample)",
+      "n": 379,
+      "answer_type": "binary (Ethical / Unethical; label 0 = Ethical)",
+      "sampling": "as above",
+      "short_name": "ETHICS commonsense",
+      "answer_type_short": "binary"
+    },
+    "winogrande": {
+      "name": "WinoGrande",
+      "hf_id": "allenai/winogrande (winogrande_debiased)",
+      "split": "train (random sample)",
+      "n": 382,
+      "answer_type": "binary (option 1 / option 2)",
+      "sampling": "as above",
+      "short_name": "WinoGrande",
+      "answer_type_short": "binary"
+    },
+    "_sampling_short": "random samples of the training splits (finite-population 95%/5% sample size)"
+  },
+  "mint_generation": {
+    "generator": "meta-llama/Llama-3.3-70B-Instruct via HF transformers",
+    "generation_params": {
+      "do_sample": true,
+      "temperature": 0.7,
+      "top_p": 0.9,
+      "repetition_penalty": 1.1,
+      "max_new_tokens": "download_datasets.py --max_tokens (default in script)"
+    },
+    "pipeline": "one false fact per question (prompt: generate_false_fact_prompt), then one passage per rhetorical category conditioned on the false fact (prompt: generate_misinformation_from_fact_prompt); post-processing removes sentences that announce the text as misinformation",
+    "categories": [
+      "false_fact",
+      "clickbait",
+      "conspiracy",
+      "framing",
+      "hoax",
+      "other",
+      "propaganda",
+      "rumor",
+      "satire"
+    ],
+    "n_passages": 10278,
+    "irrelevant_true": "facebook/wiki_dpr passages, length-matched to the mean misinformation length per item (scripts/extend_mint_dataset_v1_1.py)",
+    "validation": "scripts/validate_mint.py: two judges from other families (GPT-OSS-120B, GLM-4.7-Flash); MINT-verified = both judges answer yes to Q1 (contradicts gold) and Q2 (supports intended wrong answer). WinoGrande: Q1 is ill-posed for fictional scenarios (the judges call the plain false fact false in 12 % / 31 % of the cases although 68 % / 58 % agree that it supports the wrong answer), so the WinoGrande debates were run on all 382 questions and the analyses restrict them to the questions whose plain false fact both judges confirm on Q2 (183); the Q1-and-Q2 subset (27) is a sensitivity check",
+    "pipeline_short": "one false fact per question, then one passage per rhetorical category conditioned on it; sentences announcing the text as misinformation removed",
+    "irrelevant_true_short": "irrelevant-true control: wiki_dpr passages, length-matched per item",
+    "relevant_true_short": "relevant-true control: Llama-generated passages that support the gold answer, same nine styles",
+    "validation_short": "both judges (GPT-OSS-120B, GLM-4.7-Flash, T 0) confirm that the passage contradicts the gold answer and supports the intended wrong answer (WinoGrande: supports the intended wrong answer, because Q1 is ill-posed for its fictional scenarios)",
+    "generator_short": "Llama-3.3-70B-Instruct",
+    "passages_short": "one false fact per question, nine rhetorical styles",
+    "controls_short": "irrelevant-true (Wikipedia passage about another topic), filler (content-free text as long as the item's mean misinformation passage) and relevant-true (same styles, supporting the gold answer); lengths in the length-matching table",
+    "verified_counts": {
+      "cwq": 98,
+      "ethics": 114,
+      "winogrande": 183
+    },
+    "verified_counts_strict": {
+      "cwq": 98,
+      "ethics": 114,
+      "winogrande": 27
+    },
+    "verification_criterion": {
+      "cwq": "both_q1q2",
+      "ethics": "both_q1q2",
+      "winogrande": "both_q2"
+    }
+  },
+  "single_agent": {
+    "runner": "exp1.py",
+    "prompt": "shared_utils.PROMPT_BASELINE / PROMPT_MISINFORMED (extra information line: 'You have this extra information: <passage>')",
+    "temperature": 0.7,
+    "top_p": 1.0,
+    "max_tokens": 512,
+    "max_tokens_reasoning_models": 2048,
+    "seed": "full-sample run set: not set (server default sampling, no seed); verified run set: seeds 0, 1 and 2 with --reprompt_unparsed (seed 0: all conditions; seeds 1 and 2: baseline and false_fact)",
+    "chat_template": "applied by the OpenAI-compatible server",
+    "prompt_short": "baseline prompt vs. the same prompt with an extra-information line holding the passage",
+    "seed_short": "seeds 0, 1, 2 with one constrained re-prompt (T 0) of unparseable answers (seed 0: all conditions; seeds 1 and 2: uninformed and false fact)",
+    "top_p_note": "exp1.py sends top_p 1.0 when --top_p is not given (runner_common.ChatClient default); the full-sample runs used the HF/server default"
+  },
+  "self_consistency": {
+    "runner": "exp2_ablation.py / exp_msc.py",
+    "num_samples": 15,
+    "num_samples_msc": 3,
+    "temperature": 0.8,
+    "top_p": 0.95,
+    "seed": "42 + sample_idx (per sample; dropped if the endpoint rejects seeds)",
+    "aggregation": "majority vote over parsed answers; mSC (the baseline of the paper) uses the first sample when the samples have no majority (the rule of the runner); mSC-strict and SC15 count a question without a majority as wrong",
+    "seed_short": "42 + sample index",
+    "aggregation_short": "majority vote over parsed answers; mSC uses the first sample when there is no majority, mSC-strict and SC15 count it as wrong",
+    "msc_temperature": 1.0,
+    "msc_top_p": 1.0,
+    "sampling_note": "SC (15 samples, exp2_ablation.py): temperature 0.8 / top-p 0.95 explicit. mSC (3 samples, exp_msc.py): temperature 1.0 / top-p 1.0 explicit (the runner fills unset values with 1.0), not the server default",
+    "msc_matched_temperature": 0.6,
+    "msc_matched_top_p": 0.9,
+    "msc_matched_note": "Llama-3.3 mSC re-sampled at the debate's server default (T 0.6 / top-p 0.9; out/<model>/msc_matched; seeds 0-2 at k = 1 and 3, seed 0 at k = 0 and 2) as a sensitivity check of the sampling mismatch between the MALLM debates and exp_msc.py; scripts/msc_matched_sensitivity.py"
+  },
+  "debate": {
+    "framework": "MALLM (sibling repository ../mallm), discussion_paradigm = memory, response_generator = simple",
+    "num_agents": 3,
+    "num_agents_exp3": 5,
+    "max_turns": 5,
+    "vote_turn": 3,
+    "visible_turns_in_memory": 2,
+    "use_chain_of_thought": false,
+    "max_tokens": 1024,
+    "max_tokens_reasoning_models": 4096,
+    "temperature": "not set by MALLM (the request carries only max_tokens) -> server default: Llama-3.3 temperature 0.6 / top-p 0.9 (generation_config.json), GLM-4.7-Flash temperature 1.0 / top-p 1.0, GPT-OSS-120B temperature 1.0 / top-p 1.0",
+    "agent_order": "fixed within a debate: Participant 1, 2, 3 speak in this order every turn; in exp2 the misinformed agent is always Participant 3 (speaks last); in exp3 and exp_exposure the misinformed slots are shuffled per question with a fixed seed",
+    "protocols": {
+      "voting": "MALLM simple_voting: at the end of turn 3 (vote_turn) every agent produces a final answer and votes anonymously for one of the listed answers; plurality wins; a tie triggers another turn and a new vote (at most 5 turns); a debate still tied after turn 5 has no final answer and is scored as wrong (10 of 21,072 voting debates of the exposure runs, 80 of 30,834 and 68 of 6,876 in the full-sample three- and five-agent debates)",
+      "consensus": "derived from the same transcript: the solution held by the last speaking agent at the final turn (agreeing agents inherit the current draft)",
+      "voting_short": "voting: anonymous plurality vote over the agents' final answers after turn 3; a tie triggers another turn, and a debate still tied after turn 5 has no answer and counts as wrong",
+      "consensus_short": "consensus: answer held by the last speaker at the final turn"
+    },
+    "passage_sharing": "when k > 1 agents are misinformed they receive the SAME passage (exp3 and exp_exposure default --passage_sharing shared; 'independent' assigns a different category passage of the same question to each misinformed agent)",
+    "seed": "exp3: 0; exp_exposure: 0, 1, 2",
+    "composition_sweep_fill": "Llama-3.3-70B five-agent sweep (exp3): 176 of the 2,292 debates (0/5: 5, 1/5: 28, 2/5: 35, 3/5: 31, 4/5: 32, 5/5: 45) exceeded the 8,192-token serving context and MALLM silently substituted them with re-runs of already debated questions; exp3_fill_missing.py re-ran exactly these question x mix cells with the original configuration (same slot draw, seed 0, 1,024 tokens) against the model served with max_model_len 32,768 (2026-10-09) and replaced the substitutes, so every mix has one debate per question (n = 382; 183 verified). GLM-4.7-Flash and GPT-OSS-120B (65,536 / 32,768 context) were complete.",
+    "exposure_runs": {
+      "runner": "exp_exposure.py (MAD, n = 3) and exp_msc.py (misinformed self-consistency, 3 samples, same slot assignment)",
+      "k_levels": "0, 1, 2, 3 at seed 0; k = 1 and 3 additionally at seeds 1 and 2 (seed changes the sampling and the per-question assignment of the informed slots); WinoGrande k >= 1 on all questions (restricted to the verified questions in the analyses)",
+      "questions": "k = 0: full sample (CWQ 381, ETHICS 379, WinoGrande 382); CWQ and ETHICS k >= 1: --mint_filter verified (both judges Q1 and Q2: CWQ 98, ETHICS 114); WinoGrande k >= 1: all 382 questions (--mint_filter all), restricted in the analyses to the 183 questions whose false fact both judges confirm on Q2 (the 27 Q1-and-Q2 questions are a sensitivity check); analyses restrict all cells of a curve to these questions",
+      "passage_category": "false_fact",
+      "controls_in_debate": "relevant_true passages (Llama generated, same nine styles) at k = 1 and 3 on WinoGrande (full sample) and on the verified questions of CWQ and ETHICS; source-skepticism prompt (all agents) at k = 1 and 3 on all three datasets (CWQ and ETHICS verified questions; WinoGrande all 382, restricted to the verified 183), and on the verified questions at k = 0 (no context) and with the relevant-true passages at k = 1 and 3 (WinoGrande: 148 of the verified questions); verifier agent re-run of the final stage on the seed-0 k = 1 debates of all three datasets vs. a regenerated control",
+      "max_tokens": "Llama-3.3 1024, GLM-4.7-Flash and GPT-OSS-120B 4096 (reasoning parsers enabled)",
+      "k_levels_short": "k = 0, 1, 2, 3 at seed 0; k = 1 and 3 also at seeds 1 and 2",
+      "questions_short": "k = 0 on the full samples; k >= 1 on the verified false-fact questions (CWQ 98, ETHICS 114, WinoGrande 183); curves compare the same questions",
+      "controls_in_debate_short": "relevant-true passages (k = 1 and 3; WinoGrande full sample, CWQ and ETHICS verified questions); source-skepticism instruction (all datasets: k = 1 and 3 with false or relevant-true passages, k = 0 without context); verifier agent on the seed-0 k = 1 debates vs. a regenerated control",
+      "max_tokens_short": "Llama 1,024; GLM and GPT-OSS 4,096",
+      "mitigations_short": "source-skepticism instruction in every agent's task prompt; verifier agent that lists unsupported claims before the final vote (one extra generation per debate)"
+    },
+    "framework_short": "MALLM, memory paradigm, simple response generator",
+    "temperature_short": "temperature not set (model default, see Models)",
+    "agent_order_short": "fixed speaking order; misinformed slots shuffled per question with a fixed seed (full-sample exp2 debates: misinformed agent always last)",
+    "passage_sharing_short": "all k misinformed agents receive the same passage",
+    "seeds_short": "seeds 0, 1, 2 for k = 1 and 3, seed 0 for k = 0 and 2"
+  },
+  "answer_extraction": {
+    "module": "answer_extraction.py",
+    "rule": "reasoning delimiters stripped; text after the last explicit answer marker; trailing stand-alone letter; decisive option statement; option text with word boundaries. Status in {parsed, ambiguous, unparsed}.",
+    "handling": "only unambiguously parsed answers can be correct; unparsed and ambiguous answers count as incorrect and their rates are reported (results/extraction_failure_rates.csv)",
+    "free_form": "normalized whole-word containment of a gold answer or alias in the 'Final Solution:' segment when a marker was requested (debate, self-consistency), otherwise in the whole response (single agent)",
+    "rule_short": "reasoning stripped; answer after the last explicit marker, else trailing letter, decisive option statement or option text; status parsed / ambiguous / unparsed",
+    "handling_short": "only parsed answers can be correct; failure rates reported",
+    "free_form_short": "free-form answers: normalised whole-word match of a gold answer or alias",
+    "setup_short": "unified extractor; only unambiguously parsed answers count as correct; free-form answers matched against gold answers and aliases"
+  },
+  "statistics": {
+    "ci": "paired bootstrap over questions, 10,000 resamples, percentile 95% CI (scripts/stats.py)",
+    "test": "paired permutation test (sign flips), Holm-adjusted within the significance table",
+    "seeds": "main configurations (SA baseline/false_fact, MAD k=1 and k=3, mSC k=1 and k=3) run with 3 seeds (every single-agent seed with the constrained re-prompt); per-question outcomes are averaged over seeds before the bootstrap and the SD of the per-seed accuracies is reported (results/exposure_curve.csv, column acc_seed_sd)",
+    "ci_short": "paired percentile bootstrap over questions, 10,000 resamples",
+    "test_short": "two-sided paired permutation test (sign flips), Holm-adjusted in the significance table",
+    "seeds_short": "three seeds for the main configurations; per-question outcomes averaged over seeds, per-seed SD reported",
+    "setup_short": "paired over questions: percentile bootstrap 95% CIs (10,000 resamples), two-sided sign-flip permutation p, Holm across the 72 debate effects; per-question outcomes averaged over seeds, per-seed SD reported"
+  }
+}

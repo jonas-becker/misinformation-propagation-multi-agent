@@ -1,0 +1,326 @@
+{
+  "descriptive": {
+    "filter": {
+      "n_tasks_total": 480,
+      "n_tasks_included": 387,
+      "n_tasks_excluded": 93,
+      "min_annotations_required": 3
+    },
+    "n_tasks": 387,
+    "unique_mint_ids": 60,
+    "task_state_counts": {
+      "NEEDS_REVIEW": 387
+    },
+    "annotators_per_task": {
+      "3": 387
+    },
+    "annotator_submission_counts": {
+      "84191": 240,
+      "84195": 240,
+      "169432": 238,
+      "169433": 240,
+      "169637": 128,
+      "169671": 75
+    },
+    "items_per_subset": {
+      "complex_web_questions": 130,
+      "ethics_commonsense": 125,
+      "winogrande": 132
+    },
+    "items_per_strategy": {
+      "clickbait": 44,
+      "conspiracy": 55,
+      "framing": 49,
+      "hoax": 54,
+      "other": 43,
+      "propaganda": 48,
+      "rumor": 44,
+      "satire": 50
+    },
+    "label_distribution": {
+      "faithful_to_false_fact": {
+        "Yes": 857,
+        "Unclear": 136,
+        "No": 168
+      },
+      "faithful_to_claim_type": {
+        "No": 196,
+        "Yes": 869,
+        "Unclear": 96
+      }
+    },
+    "label_studio_reported_agreement_percent": {
+      "mean": 69.03643410852713,
+      "min": 0.0,
+      "max": 100.0,
+      "n_tasks_with_score": 387
+    },
+    "lead_time": {
+      "n_annotations": 1161,
+      "mean_seconds": 139.45972868217055,
+      "median_seconds": 35.087,
+      "total_hours": 44.9757625
+    }
+  },
+  "majority_vote_faithful": {
+    "faithful_to_false_fact": {
+      "n_samples": 387,
+      "n_majority_yes": 294,
+      "n_majority_no": 35,
+      "n_majority_unclear": 25,
+      "n_no_majority": 33,
+      "percent_faithful_majority_yes": 0.7596899224806202,
+      "percent_not_faithful_majority_no": 0.09043927648578812,
+      "percent_unclear_majority": 0.06459948320413436,
+      "percent_no_majority": 0.08527131782945736
+    },
+    "faithful_to_claim_type": {
+      "n_samples": 387,
+      "n_majority_yes": 307,
+      "n_majority_no": 54,
+      "n_majority_unclear": 10,
+      "n_no_majority": 16,
+      "percent_faithful_majority_yes": 0.7932816537467701,
+      "percent_not_faithful_majority_no": 0.13953488372093023,
+      "percent_unclear_majority": 0.025839793281653745,
+      "percent_no_majority": 0.041343669250646
+    }
+  },
+  "fleiss_kappa_by_dataset": {
+    "faithful_to_false_fact": {
+      "complex_web_questions": {
+        "n_items": 130,
+        "n_items_with_labels": 130,
+        "fleiss_kappa": 0.14650870998803647
+      },
+      "ethics_commonsense": {
+        "n_items": 125,
+        "n_items_with_labels": 125,
+        "fleiss_kappa": 0.2190171272263839
+      },
+      "winogrande": {
+        "n_items": 132,
+        "n_items_with_labels": 132,
+        "fleiss_kappa": 0.3652910832719233
+      }
+    },
+    "faithful_to_claim_type": {
+      "complex_web_questions": {
+        "n_items": 130,
+        "n_items_with_labels": 130,
+        "fleiss_kappa": 0.11235705562340421
+      },
+      "ethics_commonsense": {
+        "n_items": 125,
+        "n_items_with_labels": 125,
+        "fleiss_kappa": 0.3625397775178828
+      },
+      "winogrande": {
+        "n_items": 132,
+        "n_items_with_labels": 132,
+        "fleiss_kappa": 0.19528551107498515
+      }
+    }
+  },
+  "inter_annotator_agreement": {
+    "faithful_to_false_fact": {
+      "overall": {
+        "n_items": 387,
+        "min_raters_per_field": 3,
+        "percent_agreement": {
+          "unanimous": 0.5633074935400517,
+          "majority": 0.9147286821705426,
+          "n_items": 387.0
+        },
+        "cohens_kappa_mean_pairwise": 0.24799213601147982,
+        "fleiss_kappa": 0.2400009175088929,
+        "krippendorff_alpha_nominal": 0.06618706416928755
+      },
+      "by_subset": {
+        "complex_web_questions": {
+          "n_items": 130,
+          "n_items_with_labels": 130,
+          "percent_agreement_unanimous": 0.49230769230769234,
+          "fleiss_kappa": 0.14650870998803647,
+          "krippendorff_alpha_nominal": -0.0623237429497181
+        },
+        "ethics_commonsense": {
+          "n_items": 125,
+          "n_items_with_labels": 125,
+          "percent_agreement_unanimous": 0.512,
+          "fleiss_kappa": 0.2190171272263839,
+          "krippendorff_alpha_nominal": 0.06883793133468041
+        },
+        "winogrande": {
+          "n_items": 132,
+          "n_items_with_labels": 132,
+          "percent_agreement_unanimous": 0.6818181818181818,
+          "fleiss_kappa": 0.3652910832719233,
+          "krippendorff_alpha_nominal": 0.2224114703992205
+        }
+      },
+      "by_strategy": {
+        "clickbait": {
+          "n_items": 44,
+          "n_items_with_labels": 44,
+          "percent_agreement_unanimous": 0.29545454545454547,
+          "fleiss_kappa": 0.06499999999999985,
+          "krippendorff_alpha_nominal": -0.050983694898080856
+        },
+        "conspiracy": {
+          "n_items": 55,
+          "n_items_with_labels": 55,
+          "percent_agreement_unanimous": 0.509090909090909,
+          "fleiss_kappa": 0.06986108314878195,
+          "krippendorff_alpha_nominal": -0.27513498567343975
+        },
+        "framing": {
+          "n_items": 49,
+          "n_items_with_labels": 49,
+          "percent_agreement_unanimous": 0.5102040816326531,
+          "fleiss_kappa": 0.10226515656229156,
+          "krippendorff_alpha_nominal": -0.1994989784440211
+        },
+        "hoax": {
+          "n_items": 54,
+          "n_items_with_labels": 54,
+          "percent_agreement_unanimous": 0.6666666666666666,
+          "fleiss_kappa": 0.2947547249946912,
+          "krippendorff_alpha_nominal": 0.12119412164654808
+        },
+        "other": {
+          "n_items": 43,
+          "n_items_with_labels": 43,
+          "percent_agreement_unanimous": 0.6046511627906976,
+          "fleiss_kappa": 0.2849630471859011,
+          "krippendorff_alpha_nominal": 0.13164870599402567
+        },
+        "propaganda": {
+          "n_items": 48,
+          "n_items_with_labels": 48,
+          "percent_agreement_unanimous": 0.6041666666666666,
+          "fleiss_kappa": 0.24644904061799172,
+          "krippendorff_alpha_nominal": 0.055313472058350244
+        },
+        "rumor": {
+          "n_items": 44,
+          "n_items_with_labels": 44,
+          "percent_agreement_unanimous": 0.6818181818181818,
+          "fleiss_kappa": 0.5376811594202902,
+          "krippendorff_alpha_nominal": 0.4985524040102818
+        },
+        "satire": {
+          "n_items": 50,
+          "n_items_with_labels": 50,
+          "percent_agreement_unanimous": 0.62,
+          "fleiss_kappa": 0.25490671189726194,
+          "krippendorff_alpha_nominal": 0.05960551558753002
+        }
+      }
+    },
+    "faithful_to_claim_type": {
+      "overall": {
+        "n_items": 387,
+        "min_raters_per_field": 3,
+        "percent_agreement": {
+          "unanimous": 0.5710594315245479,
+          "majority": 0.958656330749354,
+          "n_items": 387.0
+        },
+        "cohens_kappa_mean_pairwise": 0.2685663449765244,
+        "fleiss_kappa": 0.2588382911903261,
+        "krippendorff_alpha_nominal": 0.07247067204726543
+      },
+      "by_subset": {
+        "complex_web_questions": {
+          "n_items": 130,
+          "n_items_with_labels": 130,
+          "percent_agreement_unanimous": 0.5538461538461539,
+          "fleiss_kappa": 0.11235705562340421,
+          "krippendorff_alpha_nominal": -0.1859795117698344
+        },
+        "ethics_commonsense": {
+          "n_items": 125,
+          "n_items_with_labels": 125,
+          "percent_agreement_unanimous": 0.52,
+          "fleiss_kappa": 0.3625397775178828,
+          "krippendorff_alpha_nominal": 0.2595264384039825
+        },
+        "winogrande": {
+          "n_items": 132,
+          "n_items_with_labels": 132,
+          "percent_agreement_unanimous": 0.6363636363636364,
+          "fleiss_kappa": 0.19528551107498515,
+          "krippendorff_alpha_nominal": -0.046305990024060995
+        }
+      },
+      "by_strategy": {
+        "clickbait": {
+          "n_items": 44,
+          "n_items_with_labels": 44,
+          "percent_agreement_unanimous": 0.8636363636363636,
+          "fleiss_kappa": 0.5754576942107865,
+          "krippendorff_alpha_nominal": 0.3969337659808053
+        },
+        "conspiracy": {
+          "n_items": 55,
+          "n_items_with_labels": 55,
+          "percent_agreement_unanimous": 0.8545454545454545,
+          "fleiss_kappa": 0.4826632239026193,
+          "krippendorff_alpha_nominal": 0.28334152217668085
+        },
+        "framing": {
+          "n_items": 49,
+          "n_items_with_labels": 49,
+          "percent_agreement_unanimous": 0.2653061224489796,
+          "fleiss_kappa": -0.06521739130434769,
+          "krippendorff_alpha_nominal": -0.26947670515574673
+        },
+        "hoax": {
+          "n_items": 54,
+          "n_items_with_labels": 54,
+          "percent_agreement_unanimous": 0.48148148148148145,
+          "fleiss_kappa": 0.1640412819120043,
+          "krippendorff_alpha_nominal": -0.04894396030016934
+        },
+        "other": {
+          "n_items": 43,
+          "n_items_with_labels": 43,
+          "percent_agreement_unanimous": 0.6744186046511628,
+          "fleiss_kappa": 0.04760692464358445,
+          "krippendorff_alpha_nominal": -0.4486849390919161
+        },
+        "propaganda": {
+          "n_items": 48,
+          "n_items_with_labels": 48,
+          "percent_agreement_unanimous": 0.1875,
+          "fleiss_kappa": 0.005558362809499711,
+          "krippendorff_alpha_nominal": -0.03558259587020651
+        },
+        "rumor": {
+          "n_items": 44,
+          "n_items_with_labels": 44,
+          "percent_agreement_unanimous": 0.8409090909090909,
+          "fleiss_kappa": 0.41776937618147514,
+          "krippendorff_alpha_nominal": 0.1293063565372068
+        },
+        "satire": {
+          "n_items": 50,
+          "n_items_with_labels": 50,
+          "percent_agreement_unanimous": 0.44,
+          "fleiss_kappa": 0.2143760158930831,
+          "krippendorff_alpha_nominal": 0.07362630154956129
+        }
+      }
+    }
+  },
+  "metrics_documentation": {
+    "percent_faithful_majority_yes": "Share of samples where a strict majority of raters selected 'Yes' (faithful).",
+    "percent_agreement_unanimous": "Fraction of items where all raters chose the same label.",
+    "percent_agreement_majority": "Fraction of items where a strict majority shares one label.",
+    "fleiss_kappa": "Multi-rater chance-corrected agreement on items with >= min annotations.",
+    "krippendorff_alpha_nominal": "Chance-corrected nominal agreement on the same cohort.",
+    "cohens_kappa_mean_pairwise": "Mean of pairwise Cohen's kappa across rater pairs.",
+    "interpretation": "Landis & Koch (1977): κ/α < 0 poor, 0.01–0.20 slight, 0.21–0.40 fair, 0.41–0.60 moderate, 0.61–0.80 substantial, 0.81–1.00 almost perfect."
+  }
+}

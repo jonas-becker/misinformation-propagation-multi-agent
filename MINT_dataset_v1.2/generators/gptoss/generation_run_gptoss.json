@@ -1,0 +1,68 @@
+{
+  "timestamp_utc": "2026-09-25T12:05:33.121877+00:00",
+  "argv": [
+    "scripts/generate_mint_passages.py",
+    "--mode",
+    "misinformation",
+    "--model_name",
+    "openai/gpt-oss-120b",
+    "--endpoint_url",
+    "http://127.0.0.1:26700/v1",
+    "--no_autostart"
+  ],
+  "args": {
+    "mode": "misinformation",
+    "model_name": "openai/gpt-oss-120b",
+    "endpoint_url": "http://127.0.0.1:26700/v1",
+    "no_autostart": true,
+    "data_dir": "/mnt/vast-standard/home/becker247/u27608/github/misinformed_agents/MINT_dataset_v1.2",
+    "out_dir": null,
+    "datasets": "cwq,ethics,winogrande",
+    "max_items": null,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "max_tokens": 4096,
+    "max_tokens_fact": 2048,
+    "seed": 0,
+    "length_match": true,
+    "concurrency": 32,
+    "mock": false
+  },
+  "python": "3.12.13 (main, Jul 15 2026, 15:52:03) [GCC 8.5.0 20210514 (Red Hat 8.5.0-28)]",
+  "platform": "Linux-4.18.0-553.151.1.el8_10.x86_64-x86_64-with-glibc2.28",
+  "git_commit": "0122dc0b671f5c720c176fd4c8fdaa033d8d9fae",
+  "tokens": {
+    "misinformation_fact_cwq": {
+      "prompt_tokens": 54636,
+      "completion_tokens": 105402,
+      "calls": 381
+    },
+    "misinformation_cwq": {
+      "prompt_tokens": 615591,
+      "completion_tokens": 992466,
+      "calls": 3048
+    },
+    "misinformation_fact_ethics": {
+      "prompt_tokens": 138006,
+      "completion_tokens": 95931,
+      "calls": 379
+    },
+    "misinformation_ethics": {
+      "prompt_tokens": 1297145,
+      "completion_tokens": 1260991,
+      "calls": 3032
+    },
+    "misinformation_fact_winogrande": {
+      "prompt_tokens": 64458,
+      "completion_tokens": 78103,
+      "calls": 382
+    },
+    "misinformation_winogrande": {
+      "prompt_tokens": 658802,
+      "completion_tokens": 1061442,
+      "calls": 3056
+    }
+  },
+  "generator_key": "gptoss",
+  "empty_generations": {}
+}

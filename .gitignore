@@ -1,0 +1,30 @@
+*.out
+*.pyc
+__pycache__/
+*.zip
+log.txt
+notes/
+slurm/site.env
+
+# experiment outputs, figures, tables, appendix tables and result CSVs are produced by the pipeline;
+# only the hand-written prompt appendix is kept
+out/*
+!out/appendix/
+out/appendix/*
+!out/appendix/prompts.tex
+
+# JSON is ignored by default; the released data and the configs are kept
+*.json
+!configs/*.json
+!MINT_dataset_v1/*.json
+!MINT-dataset_v1.1/*.json
+!MINT_dataset_v1.2/*.json
+!MINT_dataset_v1.2/*.jsonl
+!MINT_dataset_v1.2/*.md
+!MINT_dataset_v1.2/generators/**/*.json
+!MINT_dataset_v1.2/generators/**/*.jsonl
+!MINT_dataset_v1.2/rejudge_q1_plausibility/*.json
+!controls/**/*.json
+!controls/**/*.jsonl
+!docs/*
+!prompts/*

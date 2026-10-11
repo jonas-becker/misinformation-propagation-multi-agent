@@ -1,0 +1,20 @@
+# analysis and figures (make all)
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+scipy>=1.10
+statsmodels>=0.14
+tiktoken>=0.7
+requests>=2.25.1
+tqdm>=4.64.0
+# optional: crops the figure PDFs to their ink (scripts/figure_common.save_figure); skipped when missing
+pypdfium2>=4.0
+# experiment runners (OpenAI-compatible endpoint) and MINT v1 generation (scripts/download_datasets.py, local HF inference)
+openai>=1.30
+transformers>=4.40.0
+torch>=2.0.0
+accelerate>=0.20.0
+datasets>=2.14.0
+# annotation sheets (scripts/sample_mint_for_annotation.py)
+openpyxl>=3.1
+# multi-agent debates: MALLM is expected as a sibling checkout (../mallm), see README

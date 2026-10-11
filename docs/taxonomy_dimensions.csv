@@ -1,0 +1,10 @@
+category,label_in_paper,intent_to_deceive,epistemic_status,rhetorical_style,role_in_analysis,notes
+false_fact,Plain false fact,yes,false,neutral declarative statement,misinformation (reference),"Single believable but incorrect statement; base for all styled passages"
+clickbait,Clickbait,yes,false or misleading-true,sensational headline,misinformation,"Catchy headline style; often withholds the claim itself"
+hoax,Hoax,yes,false,fabricated news report,misinformation,"Presented as factual news with sources/eyewitnesses"
+rumor,Rumor,partial (unverified),unverified/false,hedged claim,misinformation,"Ambiguous, unconfirmed claims ('some people say')"
+propaganda,Propaganda,yes,false or misleading-true,persuasive political framing,misinformation,"Agenda-driven; political tone"
+framing,Framing,yes,misleading-true / mixed,selective emphasis,misinformation,"Emphasises some aspects to conceal the truth"
+conspiracy,Conspiracy theory,yes,false,secret-plot narrative,misinformation,"Attributes events to hidden actors"
+satire,Satire,no,false (non-serious),ironic/humorous news,style control,"By definition not intended to deceive; treated as a style control, not a misinformation intent"
+other,Unconstrained,unspecified,false,unconstrained,style control,"'No constraints' generation; not an intent category"
